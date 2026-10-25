@@ -26,8 +26,9 @@ async function getWeather() {
     }
 
     weatherResult.textContent = "Loading weather...";
+    require("dotenv").config();
 
-    const apiKey = "ec94c48f526a9bb4e3d8211ee9d9cf5d";
+    const apiKey = process.env.API_KEY;
 
     const url =
   `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
