@@ -1,24 +1,30 @@
-const chatInput = document.getElementById("userInput");
-const chatButton = document.getElementById("sendButton");
-const chatMessages = document.getElementById("chatMessages");
-const chatStatus = document.getElementById("chatStatus");
+(() => {
+  "use strict";
 
-// Temperature for our experiment
-let chatTemperature = 0.2;
+  // Prevent duplicate initialization if this script is loaded twice.
+  if (window.__portfolioChatInitialized) return;
+  window.__portfolioChatInitialized = true;
 
-function showChatMessage(role, text) {
-  const message = document.createElement("div");
+  const form = document.getElementById("chatForm");
+  const input = document.getElementById("chatInput");
+  const messages = document.getElementById("chatMessages");
+  const statusText = document.getElementById("chatStatus");
+  const sendButton = document.getElementById("chatSend");
 
-  message.className =
-    "chat-message " +
-    (role === "user" ? "chat-user" : "chat-assistant");
+  if (!form || !input || !messages || !statusText || !sendButton) {
+    console.error("Chatbot initialization failed: required HTML elements are missing.");
+    return;
+  }
 
-  message.textContent = text;
-  chatMessages.appendChild(message);
+  const conversationHistory = [];
+  let isSending = false;
+  let typingNode = null;
 
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+  function scrollToLatest() {
+    messages.scrollTop = messages.scrollHeight;
+  }
 
+<<<<<<< HEAD
 function isChatConfigured() {
   return typeof CONFIG !== "undefined" &&
     !!CONFIG.apiKey &&
@@ -45,100 +51,172 @@ applyChatAvailability();
 if (typeof CONFIG !== "undefined" && CONFIG.ready) {
   CONFIG.ready.then(applyChatAvailability);
 }
+=======
+  function showMessage(text, kind) {
+    const bubble = document.createElement("div");
+    bubble.className = `chat-message chat-message--${kind === "user" ? "user" : "bot"}`;
+    bubble.textContent = text;
+    messages.appendChild(bubble);
+    scrollToLatest();
+  }
+>>>>>>> 60b8458 (Updates Added)
 
-async function sendChatMessage() {
-  if (chatButton.disabled) return;
+  function showTyping() {
+    if (typingNode) return;
 
-  const question = chatInput.value.trim();
+    typingNode = document.createElement("div");
+    typingNode.className = "chat-typing";
+    typingNode.setAttribute("role", "status");
+    typingNode.setAttribute("aria-label", "Assistant is typing");
 
-  if (!question) return;
+    for (let index = 0; index < 3; index += 1) {
+      typingNode.appendChild(document.createElement("span"));
+    }
 
-  showChatMessage("user", question);
-  chatInput.value = "";
+    messages.appendChild(typingNode);
+    scrollToLatest();
+  }
 
-  chatButton.disabled = true;
-  chatStatus.textContent = "AI is thinking...";
+  function hideTyping() {
+    if (!typingNode) return;
+    typingNode.remove();
+    typingNode = null;
+  }
 
-  try {
-    const response = await fetch(
-      CONFIG.baseUrl.replace(/\/$/, "") +
-      "/chat/completions",
-      {
+  function setStatus(message, isError = false) {
+    statusText.textContent = message;
+    if (message) {
+      statusText.dataset.state = isError ? "error" : "info";
+    } else {
+      delete statusText.dataset.state;
+    }
+  }
+
+  function getPortfolioContext() {
+    return ["#about", "#skills", "#projects"]
+      .map((selector) => {
+        const section = document.querySelector(selector);
+        if (!section) return "";
+
+        const copy = section.cloneNode(true);
+
+        copy.querySelectorAll("li").forEach((item) => {
+          if (/placeholder/i.test(item.textContent)) {
+            item.remove();
+          }
+        });
+
+        return copy.innerText.replace(/\s+/g, " ").trim();
+      })
+      .filter(Boolean)
+      .join("\n\n");
+  }
+
+  function isSimpleGreeting(text) {
+    return /^(hi|hello|hey|hii|hiii|yo|good morning|good afternoon|good evening|howdy)[!.?,\s]*$/i.test(
+      text.trim()
+    );
+  }
+
+  function saveHistory(question, answer) {
+    conversationHistory.push(
+      { role: "user", content: question },
+      { role: "assistant", content: answer }
+    );
+
+    // Keep only the latest user/assistant pair.
+    if (conversationHistory.length > 2) {
+      conversationHistory.splice(0, conversationHistory.length - 2);
+    }
+  }
+
+  function describeError(error) {
+    if (window.location.protocol === "file:") {
+      return "AI replies need the site server. Run `vercel dev` (or open the deployed site) and try again.";
+    }
+
+    return error?.message || "Chat is unavailable right now. Please try again.";
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (isSending) return;
+
+    const question = input.value.trim();
+
+    if (!question) {
+      setStatus("Please type a question.", true);
+      input.focus();
+      return;
+    }
+
+    isSending = true;
+    sendButton.disabled = true;
+    sendButton.textContent = "Sending\u2026";
+
+    showMessage(question, "user");
+    input.value = "";
+    setStatus("");
+
+    if (isSimpleGreeting(question)) {
+      const greeting = "Hi! \u{1F44B} Ask me about my skills, projects, or background.";
+
+      showMessage(greeting, "bot");
+      saveHistory(question, greeting);
+
+      isSending = false;
+      sendButton.disabled = false;
+      sendButton.textContent = "Send";
+      return;
+    }
+
+    showTyping();
+    setStatus("Thinking\u2026");
+
+    try {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + CONFIG.apiKey
         },
         body: JSON.stringify({
-          model: CONFIG.model,
-          temperature: chatTemperature,
-          messages: [
-            {
-              role: "system",
-              content:
-                "You are an AI assistant for a portfolio " +
-                "website that includes a weather application. " +
-                "Answer questions about HTML, CSS, JavaScript, " +
-                "APIs, and the projects described to you. " +
-                "Do not invent personal information. " +
-                "Keep replies under 60 words."
-            },
-            {
-              role: "user",
-              content: question
-            }
-          ]
-        })
+          question,
+          portfolioContext: getPortfolioContext(),
+          history: conversationHistory.slice(-2),
+        }),
+      });
+
+      let data = null;
+      try {
+        data = await response.json();
+      } catch (parseError) {
+        data = null;
       }
-    );
 
-    if (response.status === 429) {
-      throw new Error("RATE_LIMIT");
+      if (!response.ok) {
+        throw new Error(data?.error || `Chat request failed (${response.status}).`);
+      }
+
+      const answer = data?.answer;
+
+      if (typeof answer !== "string" || !answer.trim()) {
+        throw new Error("The AI returned an empty answer.");
+      }
+
+      saveHistory(question, answer);
+
+      hideTyping();
+      showMessage(answer, "bot");
+      setStatus("");
+    } catch (error) {
+      console.error("Chat error:", error);
+      hideTyping();
+      setStatus(describeError(error), true);
+    } finally {
+      isSending = false;
+      sendButton.disabled = false;
+      sendButton.textContent = "Send";
     }
-
-    if (!response.ok) {
-      throw new Error("API_ERROR");
-    }
-
-    const data = await response.json();
-
-    const answer = data.choices?.[0]?.message?.content;
-
-    if (typeof answer !== "string" || !answer.trim()) {
-      throw new Error("INVALID_RESPONSE");
-    }
-
-    showChatMessage("assistant", answer);
-
-  } catch (error) {
-    console.error("Chat error:", error.message);
-
-    if (error.message === "RATE_LIMIT") {
-      showChatMessage(
-        "assistant",
-        "Too many requests. Please wait and try again."
-      );
-    } else if (!navigator.onLine) {
-      showChatMessage(
-        "assistant",
-        "No internet connection. Please reconnect."
-      );
-    } else {
-      showChatMessage(
-        "assistant",
-        "AI service unavailable. Please try again."
-      );
-    }
-  } finally {
-    chatButton.disabled = false;
-    chatStatus.textContent = "";
-  }
-}
-
-chatButton.addEventListener("click", sendChatMessage);
-
-chatInput.addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
-    sendChatMessage();
-  }
-});
+  });
+})();

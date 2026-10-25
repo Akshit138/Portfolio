@@ -13,14 +13,22 @@ For a portfolio, use:
 - HTML
 - CSS
 - JavaScript
+<<<<<<< HEAD
 - Git
 - GitHub
 - Verce
+=======
+- Node.js (serverless function for the AI assistant)
+- Git
+- GitHub
+- Vercel
+>>>>>>> 60b8458 (Updates Added)
 
 ## Features
 - Introduces my profile and background
 - Displays my skills and projects
 - Provides direct links to my GitHub and professional profiles
+<<<<<<< HEAD
 
 ## Run Locally
 1. Clone the repository.
@@ -31,3 +39,20 @@ For a portfolio, use:
 - The portfolio is a static website.
 - Project information must be updated manually.
 - It does not currently include a backend or contact form submission service.
+=======
+- Blue / gold / white theme with a persisted light & dark mode switch
+- Weather lookup powered by OpenWeather
+- AI assistant that answers questions about this portfolio
+
+## Run Locally
+1. Clone the repository.
+2. Open `index.html` in a browser for the static preview.
+3. For the AI assistant, run the project with the Vercel CLI (`vercel dev`) and set the
+   `GROQ_API_KEY` environment variable. API routes are not available when the file is
+   opened directly from disk.
+
+## Current Limitations
+- The portfolio is otherwise a static website.
+- Project information must be updated manually.
+- It does not currently include a contact form submission service.
+>>>>>>> 60b8458 (Updates Added)

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
+<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Akshit — Personal Profile</title>
@@ -9,18 +10,91 @@
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="Chatbot.css">
+=======
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Akshit — personal portfolio. Student at JECRC University working with Python, C/C++, and web technologies."
+  />
+  <meta name="theme-color" content="#f5f7fb" />
+  <title>Akshit — Personal Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="Chatbot.css" />
+
+  <script>
+    // Apply the saved theme before paint so the page never flashes the wrong colours.
+    (function () {
+      try {
+        var saved = localStorage.getItem("portfolio-theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = saved === "dark" || saved === "light" ? saved : (prefersDark ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+        if ("IntersectionObserver" in window) {
+          document.documentElement.classList.add("js");
+        }
+      } catch (error) {
+        /* localStorage may be unavailable — default theme still applies. */
+      }
+    })();
+  </script>
+>>>>>>> 60b8458 (Updates Added)
 </head>
 <body>
   <div class="page-bg" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="hero">
-    <p class="hero-label">Personal Profile</p>
-    <h1>Akshit</h1>
-    <p class="hero-lead">
-    I am a Student at JECRC University
-    </p>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#top" aria-label="Akshit — back to top">
+        <span class="brand__mark" aria-hidden="true">A</span>
+        <span class="brand__text">Akshit<span class="brand__dot">.</span></span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#weather">Weather</a>
+        <a href="#assistant">AI Chat</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button
+        class="theme-toggle"
+        id="themeToggle"
+        type="button"
+        aria-pressed="false"
+        aria-label="Switch to dark mode"
+      >
+        <span class="theme-toggle__track" aria-hidden="true">
+          <span class="theme-toggle__thumb"></span>
+          <span class="theme-toggle__icon theme-toggle__icon--sun">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+              <circle cx="12" cy="12" r="4.1"></circle>
+              <path d="M12 2.8v2.1M12 19.1v2.1M2.8 12h2.1M19.1 12h2.1M5.5 5.5l1.5 1.5M17 17l1.5 1.5M18.5 5.5 17 7M7 17l-1.5 1.5"></path>
+            </svg>
+          </span>
+          <span class="theme-toggle__icon theme-toggle__icon--moon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.4 14.7A8.6 8.6 0 0 1 9.3 3.6a8.7 8.7 0 1 0 11.1 11.1Z"></path>
+            </svg>
+          </span>
+        </span>
+        <span class="theme-toggle__label" id="themeToggleLabel">Light</span>
+      </button>
+    </div>
   </header>
 
+<<<<<<< HEAD
   <main>
     <section class="about" id="about" aria-labelledby="about-heading">
       <h2 id="about-heading">About</h2>
@@ -39,22 +113,95 @@
             PLACEHOLDER second about paragraph. Add anything else visitors should know —
             location, education, or goals.
           </p>
+=======
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">
+            <span class="eyebrow__line" aria-hidden="true"></span>
+            Personal Portfolio
+          </p>
+          <h1 class="hero__name" id="hero-title">
+            Akshit<span class="hero__dot">.</span>
+          </h1>
+          <p class="hero__lead">
+            Student at <strong>JECRC University</strong>, building thoughtful software with
+            Python, C/C++, and the modern web.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects">
+              View Projects
+              <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn--ghost" href="mailto:akshitchaudary7@gmail.com">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="portrait">
+            <div class="portrait__inner">
+              <span class="profile-fallback" aria-hidden="true">A</span>
+              <img
+                class="profile-image"
+                src="portfolio.png"
+                alt="Portrait of Akshit"
+                width="420"
+                height="420"
+              />
+            </div>
+          </div>
+          <p class="portrait__caption">Portfolio &middot; 2026</p>
+>>>>>>> 60b8458 (Updates Added)
         </div>
       </div>
     </section>
 
-    <section class="skills" id="skills" aria-labelledby="skills-heading">
-      <h2 id="skills-heading">Skills</h2>
-      <p class="section-lead">PLACEHOLDER skills intro — tools and strengths you rely on most.</p>
-      <ul class="skills-list">
-        <li>Python</li>
-        <li>HTMl</li>
-        <li>C/C++</li>
-        <li>Node.js</li>
-        <li>CSS</li>
-      </ul>
+    <section class="section about" id="about" aria-labelledby="about-heading" data-reveal>
+      <div class="container">
+        <div class="section__head">
+          <span class="section__index">01</span>
+          <h2 class="section__title" id="about-heading">About</h2>
+        </div>
+        <p class="section__lead">
+          A little context on who I am and the work I am building toward.
+        </p>
+
+        <div class="about__grid">
+          <div class="about__copy">
+            <p>
+              I am a student at JECRC University with a focus on programming fundamentals and
+              practical, hands-on software. Most of my work is in Python and C/C++, where I enjoy
+              turning small assignments into clean, well-structured projects.
+            </p>
+            <p>
+              Alongside coursework, I am exploring web development &mdash; building interfaces with
+              HTML, CSS and JavaScript, then documenting each project on GitHub so the process stays
+              visible.
+            </p>
+          </div>
+
+          <aside class="about__facts" aria-label="Quick facts">
+            <div class="fact">
+              <span class="fact__label">Education</span>
+              <span class="fact__value">JECRC University</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">Focus</span>
+              <span class="fact__value">Python &middot; C/C++ &middot; Web</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">Email</span>
+              <a class="fact__value fact__link" href="mailto:akshitchaudary7@gmail.com">
+                akshitchaudary7@gmail.com
+              </a>
+            </div>
+          </aside>
+        </div>
+      </div>
     </section>
 
+<<<<<<< HEAD
     <section class="projects" id="projects" aria-labelledby="projects-heading">
       <h2 id="projects-heading">Projects</h2>
       <div class="project-search">
@@ -133,26 +280,289 @@
           <p class="project-tech">HTML · CSS · JavaScript</p>
         </li>
       </ul>
+=======
+    <section class="section skills" id="skills" aria-labelledby="skills-heading" data-reveal>
+      <div class="container">
+        <div class="section__head">
+          <span class="section__index">02</span>
+          <h2 class="section__title" id="skills-heading">Skills</h2>
+        </div>
+        <p class="section__lead">Languages and tools I use to build, debug, and ship my work.</p>
+
+        <ul class="skills-list">
+          <li>Python</li>
+          <li>HTML</li>
+          <li>C / C++</li>
+          <li>Node.js</li>
+          <li>CSS</li>
+          <li>JavaScript</li>
+          <li>Git &amp; GitHub</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section projects" id="projects" aria-labelledby="projects-heading" data-reveal>
+      <div class="container">
+        <div class="section__head">
+          <span class="section__index">03</span>
+          <h2 class="section__title" id="projects-heading">Projects</h2>
+        </div>
+        <p class="section__lead">
+          Assignment work and small applications, collected from my GitHub repositories.
+        </p>
+
+        <div class="project-search">
+          <svg
+            class="project-search__icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.6-3.6"></path>
+          </svg>
+          <label class="visually-hidden" for="projectSearch">Search projects</label>
+          <input
+            id="projectSearch"
+            type="search"
+            placeholder="Search projects by title, description, or technology"
+            autocomplete="off"
+            aria-controls="projects-list"
+          />
+        </div>
+
+        <p id="projectSearchEmpty" class="project-search-empty" hidden>
+          No projects match your search.
+        </p>
+
+        <ul id="projects-list" class="projects-list">
+          <li class="project-card" data-technologies="C++ Python">
+            <div class="project-card__top">
+              <span class="project-card__index" aria-hidden="true">01</span>
+              <span class="project-card__badge">C++ &middot; Python</span>
+            </div>
+            <h3 class="project-title">
+              <a
+                href="https://github.com/Akshit138/python-basics-25bcon1138-factorial.git"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                C++ to Python Program Conversion
+              </a>
+            </h3>
+            <p class="project-description">
+              A collection of three basic programming exercises converted from C++ to Python,
+              covering factorial calculation, Fibonacci series generation, and the conversion of
+              C++ structures into Python dictionaries.
+            </p>
+            <p class="project-links">
+              <span class="project-links__label">Repositories</span>
+              <a
+                href="https://github.com/Akshit138/python-basics-25bcon1138-factorial.git"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Factorial</a>
+              <a
+                href="https://github.com/Akshit138/python-basics-25bcon1138-fibonacci.git"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Fibonacci</a>
+              <a
+                href="https://github.com/Akshit138/python-basics-25bcon1138-struct-to--dictionary.git"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Struct to Dictionary</a>
+            </p>
+          </li>
+
+          <li class="project-card" data-technologies="Python">
+            <div class="project-card__top">
+              <span class="project-card__index" aria-hidden="true">02</span>
+              <span class="project-card__badge">Python</span>
+            </div>
+            <h3 class="project-title">
+              <a
+                href="https://github.com/Akshit138/Buggy_Python_Code_25bcon1138.git"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Python Debugging and Testing
+              </a>
+            </h3>
+            <p class="project-description">
+              A Python programming assignment focused on identifying and correcting errors in
+              existing code. The project also includes a test file to verify the corrected
+              program's behavior and check whether it works as expected.
+            </p>
+            <p class="project-tech">Python</p>
+          </li>
+
+          <li class="project-card" data-technologies="Python">
+            <div class="project-card__top">
+              <span class="project-card__index" aria-hidden="true">03</span>
+              <span class="project-card__badge">Python</span>
+            </div>
+            <h3 class="project-title">
+              <a
+                href="https://github.com/Akshit138/Messy_Python_Code_25bcon1138.git"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Python Code Refactoring with Cursor AI
+              </a>
+            </h3>
+            <p class="project-description">
+              A Python program focused on improving the structure and readability of an existing
+              messy program using Cursor AI, while preserving its original output and intended
+              behavior.
+            </p>
+            <p class="project-tech">Python</p>
+          </li>
+
+          <li class="project-card" data-technologies="HTML CSS JavaScript">
+            <div class="project-card__top">
+              <span class="project-card__index" aria-hidden="true">04</span>
+              <span class="project-card__badge">HTML &middot; CSS &middot; JS</span>
+            </div>
+            <h3 class="project-title">
+              <a
+                href="https://github.com/Akshit138/Quiz_25bcon1138.git"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Quiz
+              </a>
+            </h3>
+            <p class="project-description">
+              A quiz-based web project built using HTML, JavaScript, and CSS, with the initial HTML
+              and JavaScript developed independently and Cursor AI used to create the CSS styling.
+            </p>
+            <p class="project-tech">HTML &middot; CSS &middot; JavaScript</p>
+          </li>
+
+          <li class="project-card" data-technologies="HTML CSS JavaScript">
+            <div class="project-card__top">
+              <span class="project-card__index" aria-hidden="true">05</span>
+              <span class="project-card__badge">HTML &middot; CSS &middot; JS</span>
+            </div>
+            <h3 class="project-title">
+              <a
+                href="https://github.com/Akshit138/Reading_List.git"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Reading Book App
+              </a>
+            </h3>
+            <p class="project-description">
+              A web application for keeping track of books read and saving reading progress, built
+              using HTML, CSS, and JavaScript.
+            </p>
+            <p class="project-tech">HTML &middot; CSS &middot; JavaScript</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section weather" id="weather" aria-labelledby="weather-heading" data-reveal>
+      <div class="container">
+        <div class="section__head">
+          <span class="section__index">04</span>
+          <h2 class="section__title" id="weather-heading">Weather</h2>
+        </div>
+        <p class="section__lead">Live conditions for any city, powered by OpenWeather.</p>
+
+        <div class="weather__panel">
+          <form class="weather__form" id="weatherForm">
+            <label class="visually-hidden" for="cityInput">City name</label>
+            <input
+              type="text"
+              id="cityInput"
+              placeholder="Enter a city, e.g. Jaipur"
+              autocomplete="off"
+            />
+            <button id="weatherButton" class="btn btn--primary" type="submit">Get Weather</button>
+          </form>
+
+          <div id="weatherResult" class="weather__result" aria-live="polite">
+            Enter a city to see the weather.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section ai-chat" id="assistant" aria-labelledby="assistant-heading" data-reveal>
+      <div class="container">
+        <div class="section__head">
+          <span class="section__index">05</span>
+          <h2 class="section__title" id="assistant-heading">Ask My AI Assistant</h2>
+        </div>
+        <p class="section__lead">Ask questions about this portfolio, projects, and technologies.</p>
+
+        <div class="ai-chat__panel">
+          <div class="ai-chat__bar">
+            <span class="ai-chat__dot" aria-hidden="true"></span>
+            <span>Portfolio Assistant</span>
+            <span class="ai-chat__badge">AI</span>
+          </div>
+
+          <div
+            id="chatMessages"
+            class="chat-messages"
+            role="log"
+            aria-live="polite"
+            aria-label="Chat conversation"
+          ></div>
+
+          <form class="chat-controls" id="chatForm">
+            <label class="visually-hidden" for="chatInput">Your message</label>
+            <input
+              type="text"
+              id="chatInput"
+              placeholder="Ask a question..."
+              autocomplete="off"
+            />
+            <button id="chatSend" class="btn btn--primary" type="submit">Send</button>
+          </form>
+
+          <p id="chatStatus" class="chat-status" role="status"></p>
+          <p class="chat-note">
+            AI chat is available during the local classroom demonstration only.
+          </p>
+        </div>
+      </div>
+>>>>>>> 60b8458 (Updates Added)
     </section>
   </main>
-  <section id="weather">
-    <h2>Weather</h2>
 
-    <input
-        type="text"
-        id="cityInput"
-        placeholder="Enter a city"
-    >
+  <footer class="site-footer" id="contact" data-reveal>
+    <div class="container site-footer__grid">
+      <div class="site-footer__intro">
+        <p class="section__index">06 &mdash; Contact</p>
+        <h2 class="site-footer__title">Let&rsquo;s talk.</h2>
+        <p class="site-footer__lead">
+          Open to conversations about coursework, projects, and opportunities to learn.
+        </p>
+      </div>
 
-    <button id="weatherButton">
-        Get Weather
-    </button>
-
-    <div id="weatherResult">
-        Enter a city to see the weather.
+      <ul class="contact-list">
+        <li>
+          <span>Email</span>
+          <a href="mailto:akshitchaudary7@gmail.com">AkshitChaudary7@gmail.com</a>
+        </li>
+        <li>
+          <span>GitHub</span>
+          <a href="https://github.com/Akshit138" target="_blank" rel="noopener noreferrer">
+            github.com/Akshit138
+          </a>
+        </li>
+      </ul>
     </div>
-</section>
 
+<<<<<<< HEAD
 <section id="aiChatSection" class="ai-chat">
   <h2>Ask My AI Assistant</h2>
 
@@ -203,6 +613,14 @@
     </ul>
   </footer>
   <button id="themeToggle">Switch to Dark Mode</button>
+=======
+    <div class="container site-footer__meta">
+      <p>&copy; <span id="year">2026</span> Akshit. All rights reserved.</p>
+      <a class="to-top" href="#top">Back to top <span aria-hidden="true">&uarr;</span></a>
+    </div>
+  </footer>
+
+>>>>>>> 60b8458 (Updates Added)
   <script src="Config.js"></script>
   <script src="script.js"></script>
   <script src="Chatbot.js"></script>
