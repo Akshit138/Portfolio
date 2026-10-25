@@ -15,7 +15,7 @@ themeButton.addEventListener("click", function () {
 const cityInput = document.getElementById("cityInput");
 const weatherButton = document.getElementById("weatherButton");
 const weatherResult = document.getElementById("weatherResult");
-
+weatherButton.addEventListener("click", getWeather);
 async function getWeather() {
 
     const city = cityInput.value.trim();
@@ -54,5 +54,35 @@ async function getWeather() {
             "Unable to fetch weather. Please try again.";
 
         console.error(error);
+    }
+}
+
+const projectSearch = document.getElementById("projectSearch");
+const projectCards = document.querySelectorAll(".project-card");
+const projectSearchEmpty = document.getElementById("projectSearchEmpty");
+
+if (projectSearch) {
+    projectSearch.addEventListener("input", filterProjects);
+}
+
+function filterProjects() {
+    const query = projectSearch.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    projectCards.forEach(function (card) {
+        const title = card.querySelector(".project-title")?.textContent || "";
+        const description = card.querySelector(".project-description")?.textContent || "";
+        const technologies = card.dataset.technologies || card.querySelector(".project-tech")?.textContent || "";
+        const haystack = `${title} ${description} ${technologies}`.toLowerCase();
+        const matches = query === "" || haystack.includes(query);
+
+        card.hidden = !matches;
+        if (matches) {
+            visibleCount += 1;
+        }
+    });
+
+    if (projectSearchEmpty) {
+        projectSearchEmpty.hidden = visibleCount > 0;
     }
 }
