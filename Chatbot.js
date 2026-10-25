@@ -23,8 +23,6 @@
   function scrollToLatest() {
     messages.scrollTop = messages.scrollHeight;
   }
-
-<<<<<<< HEAD
 function isChatConfigured() {
   return typeof CONFIG !== "undefined" &&
     !!CONFIG.apiKey &&
@@ -51,7 +49,6 @@ applyChatAvailability();
 if (typeof CONFIG !== "undefined" && CONFIG.ready) {
   CONFIG.ready.then(applyChatAvailability);
 }
-=======
   function showMessage(text, kind) {
     const bubble = document.createElement("div");
     bubble.className = `chat-message chat-message--${kind === "user" ? "user" : "bot"}`;
@@ -59,7 +56,6 @@ if (typeof CONFIG !== "undefined" && CONFIG.ready) {
     messages.appendChild(bubble);
     scrollToLatest();
   }
->>>>>>> 60b8458 (Updates Added)
 
   function showTyping() {
     if (typingNode) return;
