@@ -363,4 +363,3 @@ function filterProjects() {
     weatherButton?.addEventListener("click", getWeather);
   }
 })();
->>>>>>> 60b8458 (Updates Added)
