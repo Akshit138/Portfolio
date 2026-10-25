@@ -2,7 +2,6 @@
 // Only keys that are safe to expose in client-side code belong here.
 // The Groq key lives on the server (Vercel environment variable: GROQ_API_KEY).
 const CONFIG = {
-<<<<<<< HEAD
   weatherApiKey: "",
   apiKey: "",
   baseUrl: "https://api.groq.com/openai/v1",
