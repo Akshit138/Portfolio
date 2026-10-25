@@ -45,15 +45,12 @@
         isDark ? "Switch to light mode" : "Switch to dark mode"
       );
     }
-
-<<<<<<< HEAD
 });
 const cityInput = document.getElementById("cityInput");
 const weatherButton = document.getElementById("weatherButton");
 const weatherResult = document.getElementById("weatherResult");
 weatherButton.addEventListener("click", getWeather);
 async function getWeather() {
-=======
     if (themeLabel) {
       themeLabel.textContent = isDark ? "Dark" : "Light";
     }
@@ -259,7 +256,6 @@ async function getWeather() {
 
   async function getWeather() {
     if (!cityInput || !weatherButton) return;
->>>>>>> 60b8458 (Updates Added)
 
     const city = cityInput.value.trim();
 
@@ -272,8 +268,6 @@ async function getWeather() {
     if (typeof CONFIG !== "undefined" && CONFIG.ready) {
       await CONFIG.ready;
     }
-
-<<<<<<< HEAD
     if (typeof CONFIG !== "undefined" && CONFIG.ready) {
         await CONFIG.ready;
     }
@@ -285,7 +279,6 @@ async function getWeather() {
             "Weather is unavailable because the API key is not configured.";
         return;
     }
-=======
     const apiKey = typeof CONFIG !== "undefined" ? CONFIG.weatherApiKey : "";
 
     if (!apiKey) {
@@ -300,7 +293,6 @@ async function getWeather() {
     weatherButton.disabled = true;
     weatherButton.textContent = "Checking\u2026";
     setWeatherMessage("Loading weather\u2026");
->>>>>>> 60b8458 (Updates Added)
 
     const url =
       "https://api.openweathermap.org/data/2.5/weather" +
@@ -329,7 +321,6 @@ async function getWeather() {
       weatherButton.disabled = false;
       weatherButton.textContent = originalLabel;
     }
-<<<<<<< HEAD
 }
 
 const projectSearch = document.getElementById("projectSearch");
@@ -361,7 +352,6 @@ function filterProjects() {
         projectSearchEmpty.hidden = visibleCount > 0;
     }
 }
-=======
   }
 
   if (weatherForm) {
