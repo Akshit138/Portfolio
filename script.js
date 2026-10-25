@@ -26,9 +26,18 @@ async function getWeather() {
     }
 
     weatherResult.textContent = "Loading weather...";
-    require("dotenv").config();
 
-    const apiKey = process.env.API_KEY;
+    if (typeof CONFIG !== "undefined" && CONFIG.ready) {
+        await CONFIG.ready;
+    }
+
+    const apiKey = typeof CONFIG !== "undefined" ? CONFIG.weatherApiKey : "";
+
+    if (!apiKey) {
+        weatherResult.textContent =
+            "Weather is unavailable because the API key is not configured.";
+        return;
+    }
 
     const url =
   `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;

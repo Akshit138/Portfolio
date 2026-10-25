@@ -19,13 +19,31 @@ function showChatMessage(role, text) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Disable chat when local configuration is absent
-if (typeof CONFIG === "undefined" ||
-    !CONFIG.apiKey ||
-    CONFIG.apiKey === "YOUR_PRIVATE_GROQ_KEY") {
-  chatButton.disabled = true;
-  chatStatus.textContent =
-    "AI chat is available in the local demonstration only.";
+function isChatConfigured() {
+  return typeof CONFIG !== "undefined" &&
+    !!CONFIG.apiKey &&
+    CONFIG.apiKey !== "YOUR_PRIVATE_GROQ_KEY";
+}
+
+function applyChatAvailability() {
+  if (!isChatConfigured()) {
+    chatButton.disabled = true;
+    chatStatus.textContent =
+      "AI chat is available in the local demonstration only.";
+    return;
+  }
+
+  chatButton.disabled = false;
+  if (chatStatus.textContent ===
+      "AI chat is available in the local demonstration only.") {
+    chatStatus.textContent = "";
+  }
+}
+
+applyChatAvailability();
+
+if (typeof CONFIG !== "undefined" && CONFIG.ready) {
+  CONFIG.ready.then(applyChatAvailability);
 }
 
 async function sendChatMessage() {
